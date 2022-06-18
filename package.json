@@ -1,0 +1,34 @@
+{
+  "name": "book-library",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "node scripts/create-database.js test",
+    "test": "mocha tests/**/*.test.js",
+    "prestart": "node scripts/create-database.js",
+    "start": "nodemon -r dotenv/config index.js",
+    "posttest": "node scripts/drop-database.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmmaWenham/book-library.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmmaWenham/book-library/issues"
+  },
+  "homepage": "https://github.com/EmmaWenham/book-library#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.1",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3"
+  }
+}
