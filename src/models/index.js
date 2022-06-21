@@ -1,26 +1,31 @@
-const Sequelize = require("sequelize");
-const ReaderModel = require("./reader");
-const BookModel = require("./books");
-const sequelize = require("sequelize");
+const Sequelize = require('sequelize');
+const ReaderModel = require('./reader');
+const BookModel = require('./books');
+const GenreModel = require('./genre');
 
-const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
+const {DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
 
-const setupDatabase = () => {
-  const connection = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+const setUpDatabase = () => {
+  const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     host: DB_HOST,
     port: DB_PORT,
-    dialect: "mysql",
+    dialect: 'mysql',
     logging: false,
   });
 
-  const Reader = ReaderModel(connection, Sequelize);
-  const Book = BookModel(connection, sequelize);
+  const Reader = ReaderModel(sequelize, Sequelize);
+  const Book = BookModel(sequelize, Sequelize);
+  const Genre = GenreModel(sequelize, Sequelize);
 
-  connection.sync({ alter: true });
+  Genre.hasMany(Book);
+  Book.belongsTo(Genre);
+
+  sequelize.sync({ alter: true });
   return {
     Reader,
     Book,
+    Genre,
   };
 };
 
-module.exports = setupDatabase();
+module.exports = setUpDatabase();
