@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+
 const ReaderModel = require('./reader');
 const BookModel = require('./books');
 const GenreModel = require('./genre');
